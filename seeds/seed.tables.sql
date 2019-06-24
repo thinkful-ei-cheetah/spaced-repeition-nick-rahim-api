@@ -5,24 +5,27 @@ TRUNCATE
   "language",
   "user";
 
-/* I moved passwords for seeding into .env file */
+
 INSERT INTO "user" ("id", "username", "name", "password")
 VALUES
   (
     1,
     'admin',
     'Dunder Mifflin Admin',
+    '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG'
   ),
   (
     2,
     'Nick',
     'Nick',
+    '$2a$12$th63jKgIvG4RTu9sKu4HC.DXd.wtO1CLpgW5/OHgPcySGuVfwAise'
     
   ),
   (
     3,
     'Rahim',
     'Rahim',
+    '$2a$12$Vq6tqdp5a1FVg52RXV.tAuMdsAlLaN0kYh7cMUhq3v3VLBjg4s9Vm'
 
   );
 
