@@ -12,12 +12,14 @@ VALUES
     1,
     'admin',
     'Dunder Mifflin Admin',
+    --password: pass
     '$2a$10$fCWkaGbt7ZErxaxclioLteLUgg4Q3Rp09WW0s/wSLxDKYsaGYUpjG'
   ),
   (
     2,
     'Nick',
     'Nick',
+    --password: nick
     '$2a$12$th63jKgIvG4RTu9sKu4HC.DXd.wtO1CLpgW5/OHgPcySGuVfwAise'
     
   ),
