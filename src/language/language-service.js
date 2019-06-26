@@ -28,6 +28,22 @@ const LanguageService = {
       )
       .where({ language_id })
   },
+
+  getLanguageHead(db) {
+    // select word.original, word.correct_count, word.incorrect_count, language.total_score
+    // from word join language
+    // on language.head = word.id;
+    return db
+      .from('language')
+      .join('word', 'language.head', '=', 'word.id')
+      .select(
+        'word.original',
+        'word.correct_count',
+        'word.incorrect_count',
+        'language.total_score'
+      )
+      .first()
+  }
 }
 
 module.exports = LanguageService
