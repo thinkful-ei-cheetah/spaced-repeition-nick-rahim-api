@@ -49,12 +49,13 @@ const LanguageService = {
 
   },
 
-  getLanguageHead(db) {
+  getLanguageHead(db, id) {
     // select word.original, word.correct_count, word.incorrect_count, language.total_score
     // from word join language
     // on language.head = word.id;
     return db
       .from('language')
+      .where('language.id', id)
       .join('word', 'language.head', '=', 'word.id')
       .select(
         'word.original',
