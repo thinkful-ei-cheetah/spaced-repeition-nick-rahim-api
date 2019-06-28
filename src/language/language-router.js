@@ -44,7 +44,7 @@ languageRouter.get('/', async (req, res, next) => {
 
 languageRouter.get('/head', async (req, res, next) => {
   try {
-    const head = await LanguageService.getLanguageHead(req.app.get('db'))
+    const head = await LanguageService.getLanguageHead(req.app.get('db'), req.language.id)
 
     res.json({
       nextWord: head.original,
@@ -108,7 +108,7 @@ languageRouter.post('/guess', jsonBodyParser, async (req, res, next) => {
       LL
     )
 
-    const newHead = await LanguageService.getLanguageHead(req.app.get('db'))
+    const newHead = await LanguageService.getLanguageHead(req.app.get('db'), req.language.id)
 
     res.json({
       nextWord: newHead.original,
