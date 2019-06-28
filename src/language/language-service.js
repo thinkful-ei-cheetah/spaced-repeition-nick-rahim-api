@@ -38,6 +38,8 @@ const LanguageService = {
           .from('word')
           .where('id', currNode.word.id)
           .update({
+            correct_count: currNode.word.correct_count,
+            incorrect_count: currNode.word.incorrect_count,
             next: currNode.word.next
           })
 
