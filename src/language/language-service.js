@@ -1,3 +1,5 @@
+const LinkedList = require('./LinkedList')
+
 const LanguageService = {
   getUsersLanguage(db, user_id) {
     return db
@@ -38,6 +40,7 @@ const LanguageService = {
           .from('word')
           .where('id', currNode.word.id)
           .update({
+            memory_value: currNode.word.memory_value,
             correct_count: currNode.word.correct_count,
             incorrect_count: currNode.word.incorrect_count,
             next: currNode.word.next
@@ -79,12 +82,23 @@ const LanguageService = {
       // .then(([ language ]) => language)
   },
 
-  setLinkedList(words, list) {
-    words.forEach(word => {
-      list.insert(word)
-    })
-  },
+  getLinkedList(words, headId) {
+    const LL = new LinkedList()
 
+    let nextId = headId
+    
+    while(nextId !== null) {
+      for(let i = 0; i < words.length; i++) {
+        if(words[i].id === nextId) {
+          nextId = words[i].next
+          LL.insert(words[i])
+        }
+      }
+    } 
+
+    return LL
+  },
+  
   updateLinkedList(list, correct) {
     const { word } = list.head
     if (correct) {

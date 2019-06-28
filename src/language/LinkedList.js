@@ -13,14 +13,14 @@ class LinkedList {
   }
 
   insert(word) {
-    if(this.head === null) {
+    if (this.head === null) {
       this.head = new _Node(word, null)
       return
     }
 
     let currNode = this.head
 
-    while(currNode.next !== null) {
+    while (currNode.next !== null) {
       currNode = currNode.next
     }
 
@@ -33,12 +33,17 @@ class LinkedList {
     let currNode = this.head
     let remShift = shift
 
-    while(currNode.next !== null && remShift !== 0) {
+    while (currNode.next !== null && remShift !== 0) {
       currNode = currNode.next
       remShift--
     }
 
-    headWord.next = currNode.next.word.id
+    if(currNode.next === null) {
+      headWord.next = null
+    } else {
+      headWord.next = currNode.next.word.id
+    }
+
     currNode.next = new _Node(headWord, currNode.next)
     currNode.word.next = headWord.id
 
@@ -48,14 +53,51 @@ class LinkedList {
 
 module.exports = LinkedList
 
-// const ll = new LinkedList()
-// ll.insertFirst(1)
-// ll.insertLast(2)
-// ll.insertLast(3)
-// ll.insertLast(4)
-// ll.insertLast(5)
-// console.log(util.inspect(ll, true, null, true))
-// ll.shiftHead(2)
-// console.log(util.inspect(ll, true, null, true)) 
-// ll.shiftHead(10)
-// console.log(util.inspect(ll, true, null, true)) 
+// const words = [
+//   {
+//     id: 1,
+//     original: 'original 1',
+//     translation: 'translation 1',
+//     language_id: 1,
+//     next: 2
+//   },
+//   {
+//     id: 2,
+//     original: 'original 2',
+//     translation: 'translation 2',
+//     language_id: 1,
+//     next: 3
+//   },
+//   {
+//     id: 3,
+//     original: 'original 3',
+//     translation: 'translation 3',
+//     language_id: 1,
+//     next: 4
+//   },
+//   {
+//     id: 4,
+//     original: 'original 4',
+//     translation: 'translation 4',
+//     language_id: 1,
+//     next: 5
+//   },
+//   {
+//     id: 5,
+//     original: 'original 5',
+//     translation: 'translation 5',
+//     language_id: 1,
+//     next: null
+//   }
+// ]
+
+// const LL = new LinkedList()
+
+// words.forEach(word => LL.insert(word))
+
+// LL.shiftHead(1)
+// LL.shiftHead(2)
+// LL.shiftHead(7)
+
+
+// console.log(util.inspect(LL, true, null, true))

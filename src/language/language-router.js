@@ -1,7 +1,6 @@
 const express = require('express')
 const LanguageService = require('./language-service')
 const { requireAuth } = require('../middleware/jwt-auth')
-const LinkedList = require('./LinkedList')
 
 const languageRouter = express.Router()
 const jsonBodyParser = express.json()
@@ -44,7 +43,10 @@ languageRouter.get('/', async (req, res, next) => {
 
 languageRouter.get('/head', async (req, res, next) => {
   try {
-    const head = await LanguageService.getLanguageHead(req.app.get('db'), req.language.id)
+    const head = await LanguageService.getLanguageHead(
+      req.app.get('db'),
+      req.language.id
+    )
 
     res.json({
       nextWord: head.original,
@@ -80,8 +82,7 @@ languageRouter.post('/guess', jsonBodyParser, async (req, res, next) => {
       })
     }
 
-    const LL = new LinkedList()
-    await LanguageService.setLinkedList(words, LL)
+    const LL = LanguageService.getLinkedList(words, req.language.head)
 
     const isCorrect = guess === LL.head.word.translation
     const {
@@ -103,13 +104,13 @@ languageRouter.post('/guess', jsonBodyParser, async (req, res, next) => {
       updatedTotalScore
     )
 
-    await LanguageService.updateLanguageWords(
+    await LanguageService.updateLanguageWords(req.app.get('db'), LL)
+
+    const newHead = await LanguageService.getLanguageHead(
       req.app.get('db'),
-      LL
+      req.language.id
     )
-
-    const newHead = await LanguageService.getLanguageHead(req.app.get('db'), req.language.id)
-
+    
     res.json({
       nextWord: newHead.original,
       totalScore: newHead.total_score,
